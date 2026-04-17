@@ -8,6 +8,8 @@
 
 Audit concurrency patterns for race conditions that could lead to data corruption, security bypasses, or denial of service. Race conditions are notoriously hard to detect in testing but can be exploited reliably by attackers.
 
+> **⚠️ Authorized Use Only:** Use this prompt only to audit codebases you own or have explicit authorization to assess.
+
 ## Prompt
 
 ~~~
@@ -46,14 +48,16 @@ Specifically investigate:
 
 Search all source files for: [SEARCH_KEYWORDS]
 
-Provide a detailed findings report with severity ratings. For each finding, describe the specific race scenario (Thread A does X, Thread B does Y, result is Z).
+Provide a detailed findings report with severity ratings. For each finding, describe the specific race scenario (Thread A does X, Thread B does Y, result is Z). **Do NOT include actual credential values, API keys, or tokens in your output** — use `[REDACTED]` placeholders.
 ~~~
 
 ## Customization Guide
 
+> **⚠️ Placeholder Safety:** Placeholder values are substituted directly into the prompt text. A crafted value could act as a prompt injection. Only use placeholder values you trust — do not accept them from untrusted sources. Note: `[SEARCH_KEYWORDS]` values are used in regex patterns — escape metacharacters appropriately.
+
 | Placeholder | Example Values |
 |-------------|---------------|
-| `[LOCK_FILES]` | `Database/DuckDbInitializer.cs`, `services/CacheManager.ts`, `utils/connection_pool.py` |
+| `[LOCK_FILES]`| `Database/DuckDbInitializer.cs`, `services/CacheManager.ts`, `utils/connection_pool.py` |
 | `[FLAG_LOCATIONS]` | `ArchiveService.IsArchiving static bool`, `isProcessing flag in WorkerService` |
 | `[INIT_FILES]` | `DuckDbInitializer.cs InitializeAsync`, `db/migrations/runner.ts`, `alembic/env.py` |
 | `[SEARCH_KEYWORDS]` | `ReaderWriterLockSlim, lock\s*\(, volatile, Interlocked, synchronized, static.*=, async void, Task.Run, .Result, .Wait(), ConfigureAwait, mutex, semaphore, Monitor.Enter, atomic` |

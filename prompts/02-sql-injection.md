@@ -8,6 +8,8 @@
 
 Audit all database query construction for injection vulnerabilities. This covers both traditional SQL databases and embedded/local databases (SQLite, DuckDB, etc.) where string interpolation into queries is equally dangerous.
 
+> **⚠️ Authorized Use Only:** Use this prompt only to audit codebases you own or have explicit authorization to assess.
+
 ## Prompt
 
 ~~~
@@ -49,14 +51,16 @@ Search patterns:
 - `CreateCommand|prepare|query\(`
 - `.raw\(|.rawQuery\(|RawSql|FromSqlRaw`
 
-Provide a detailed findings report with file paths, line numbers, code snippets, and severity ratings (Critical/High/Medium/Low/Info). Distinguish between cases where the interpolated value comes from trusted internal sources vs. potentially untrusted external input.
+Provide a detailed findings report with file paths, line numbers, code snippets, and severity ratings (Critical/High/Medium/Low/Info). Distinguish between cases where the interpolated value comes from trusted internal sources vs. potentially untrusted external input. **Do NOT include actual credential values, API keys, or tokens in your output** — use `[REDACTED]` placeholders.
 ~~~
 
 ## Customization Guide
 
+> **⚠️ Placeholder Safety:** Placeholder values are substituted directly into the prompt text. A crafted value could act as a prompt injection. Only use placeholder values you trust — do not accept them from untrusted sources.
+
 | Placeholder | Example Values |
 |-------------|---------------|
-| `[PARAMETER_SYNTAX]` | `DuckDBCommand.Parameters, SqlCommand.Parameters` (.NET), `cursor.execute(sql, params)` (Python), `pool.query(sql, [params])` (Node) |
+| `[PARAMETER_SYNTAX]`| `DuckDBCommand.Parameters, SqlCommand.Parameters` (.NET), `cursor.execute(sql, params)` (Python), `pool.query(sql, [params])` (Node) |
 | `[RAW_QUERY_METHODS]` | `FromSqlRaw, ExecuteSqlRaw` (EF Core), `Sequelize.query()` (Node), `connection.execute()` (Python) |
 | `[LOCAL_DB_SERVICE_FILES]` | `Services/LocalDataService*.cs`, `repositories/*.py` |
 | `[API_OR_TOOL_FILES]` | `Mcp/McpQueryTools.cs`, `api/query-endpoint.ts` |
