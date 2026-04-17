@@ -34,6 +34,11 @@ Each prompt file contains:
 | [07-installer.md](prompts/07-installer.md) | Installer privilege escalation, script injection | explore | Lower |
 | [08-protocol-parsing.md](prompts/08-protocol-parsing.md) | Binary protocol parsing, untrusted network input | explore | High |
 | [09-tls-configuration.md](prompts/09-tls-configuration.md) | TLS configuration, certificate handling, ALPN | explore | High |
+| [10-authorization.md](prompts/10-authorization.md) | API authorization, endpoint access control, RBAC | explore | High |
+| [11-denial-of-service.md](prompts/11-denial-of-service.md) | Rate limiting, resource exhaustion, backpressure | explore | Medium |
+| [12-deserialization.md](prompts/12-deserialization.md) | JSON deserialization, input validation, injection | explore | High |
+| [13-cors-error-disclosure.md](prompts/13-cors-error-disclosure.md) | CORS policy, HTTP security headers, error leaks | explore | Medium |
+| [14-realtime-channels.md](prompts/14-realtime-channels.md) | SignalR/WebSocket hub security, broadcast filtering | explore | High |
 
 ## Usage Tips
 
@@ -92,7 +97,7 @@ Specifically investigate:
 ...
 ```
 
-All 9 agents run simultaneously and complete in 1–3 minutes. Results include file paths, line numbers, code snippets, and severity ratings. You'll typically see a summary table like:
+All 14 agents run simultaneously and complete in 1–3 minutes. Results include file paths, line numbers, code snippets, and severity ratings. You'll typically see a summary table like:
 
 | # | Domain | Result | Key Findings |
 |---|--------|--------|--------------|
@@ -117,7 +122,7 @@ All 9 agents run simultaneously and complete in 1–3 minutes. Results include f
 
 These prompts were battle-tested on .NET console and desktop applications. To adapt:
 
-- **Web apps:** Add prompts for XSS, CSRF, CORS, session management, API authentication
+- **Web apps:** Add prompts for XSS, CSRF, session management (CORS and API auth are now covered by prompts 10 and 13)
 - **Node.js:** Swap NuGet references for npm, adjust SQL patterns for your ORM
 - **Python:** Adjust for pip, Django/Flask patterns, pickle deserialization
 - **Java:** Adjust for Maven/Gradle, Spring Security, JDBC patterns
@@ -174,7 +179,7 @@ git checkout -b feature/your-prompt-name
 
 ### 2. Create Your Prompt File
 
-Add a new markdown file in `prompts/` following the existing naming convention: `NN-short-name.md`, where `NN` is the next available two-digit number (currently `08` and up).
+Add a new markdown file in `prompts/` following the existing naming convention: `NN-short-name.md`, where `NN` is the next available two-digit number (currently `15` and up).
 
 Your prompt file **must** include these four sections:
 
