@@ -59,7 +59,8 @@ When an audit identifies findings rated **Critical**, **High**, or **Medium**, t
 3. **Label issues** with `security` and `bug` (create the `security` label if it doesn't exist)
 4. **Reference the audit** — mention that the issue was identified by an automated security audit
 5. **Don't create issues for accepted risks** — findings documented as "accepted" or "by design" in the repo's security review should not become issues unless the user requests it
-6. **Consolidate the report** — after creating issues, write a summary markdown file with a table mapping each finding to its issue number, severity, and status
+6. **Redact sensitive values** — do NOT include actual credentials, API keys, tokens, or passwords in issue text. Use `[REDACTED]` placeholders. GitHub Issues are often public.
+7. **Consolidate the report**— after creating issues, write a summary markdown file with a table mapping each finding to its issue number, severity, and status
 
 ## Example: Running a Full Audit from Another Repo
 
@@ -121,6 +122,27 @@ These prompts were battle-tested on .NET console and desktop applications. To ad
 - **Python:** Adjust for pip, Django/Flask patterns, pickle deserialization
 - **Java:** Adjust for Maven/Gradle, Spring Security, JDBC patterns
 - **Cloud/Infrastructure:** Add prompts for IAM, secrets management, network exposure
+
+## Security & Trust Model
+
+This repository is a **prompt supply chain** — you are downloading instructions and feeding them to an AI agent that has access to your codebase. That is inherently a trust decision, similar to running a third-party script.
+
+### Before using these prompts, you should:
+
+1. **Review the prompts first.** Read each prompt file before feeding it to an AI agent. Verify it only performs read-only analysis appropriate for a security audit.
+2. **Pin to a specific commit or tag.** Don't blindly pull `main` — reference a specific commit SHA or tagged release so you know exactly what your agent will execute.
+3. **Fork for sensitive environments.** If you're auditing proprietary or classified codebases, fork this repo and review all changes before merging upstream updates.
+4. **Use `explore` (read-only) agents by default.** Only prompt 06 (Supply Chain) requires a `task` agent. All others are designed for read-only investigation.
+5. **Audit the auditor.** Run these prompts against *this repo itself* to verify they don't contain hidden instructions. We did — see the [dogfood results](https://github.com/HannahVernon/ai-security-audit/issues).
+
+### What we do to maintain trust:
+
+- **Branch protection** — `dev` and `main` require pull request reviews before merge
+- **No CI/CD automation** — no GitHub Actions workflows that could execute code from PRs
+- **Output redaction** — all prompts instruct agents to use `[REDACTED]` for any credentials found
+- **Placeholder safety warnings** — each prompt warns that placeholder values are substituted directly and should come from trusted sources only
+- **Authorized-use reminders** — each prompt includes a notice to only audit codebases you own or have permission to test
+- **MIT license** — fully open source, auditable by anyone
 
 ## Viewing Results Locally
 

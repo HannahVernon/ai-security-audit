@@ -8,6 +8,8 @@
 
 Audit how the application parses binary data received from remote servers or untrusted network peers. Applications that implement custom protocol parsers (TDS, HTTP/2, MQTT, gRPC, Protobuf, etc.) are vulnerable to crafted responses that exploit length field handling, offset calculations, or buffer boundary assumptions. A malicious server — or a man-in-the-middle attacker — can send packets designed to crash the client, corrupt memory, or cause denial of service.
 
+> **⚠️ Authorized Use Only:** Use this prompt only to audit codebases you own or have explicit authorization to assess.
+
 ## Prompt
 
 ~~~
@@ -62,10 +64,12 @@ Search patterns:
 - Network reads: `Read, ReadAsync, ReadByte, ReadBytes, Receive, ReceiveAsync, NetworkStream, SslStream`
 - Allocation: `new byte[], ArrayPool, stackalloc, Marshal.AllocHGlobal`
 
-Provide a detailed findings report with file paths, line numbers, code snippets, and severity ratings (Critical/High/Medium/Low/Info). For each finding, describe a specific attack scenario a malicious server could use to exploit it.
+Provide a detailed findings report with file paths, line numbers, code snippets, and severity ratings (Critical/High/Medium/Low/Info). For each finding, describe a specific attack scenario a malicious server could use to exploit it. **Do NOT include actual credential values, API keys, or tokens in your output** — use `[REDACTED]` placeholders.
 ~~~
 
 ## Customization Guide
+
+> **⚠️ Placeholder Safety:** Placeholder values are substituted directly into the prompt text. A crafted value could act as a prompt injection. Only use placeholder values you trust — do not accept them from untrusted sources.
 
 | Placeholder | Example Values |
 |-------------|---------------|

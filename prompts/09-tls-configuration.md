@@ -8,6 +8,8 @@
 
 Audit how the application configures TLS connections, validates certificates, and handles cryptographic material. Misconfigurations such as disabled certificate validation, weak cipher suites, or improper certificate callback implementations can enable man-in-the-middle attacks or data interception — even when TLS is nominally "enabled."
 
+> **⚠️ Authorized Use Only:** Use this prompt only to audit codebases you own or have explicit authorization to assess.
+
 ## Prompt
 
 ~~~
@@ -63,10 +65,12 @@ Search patterns:
 - ALPN: `ApplicationProtocol, SslApplicationProtocol, alpn`
 - Cipher: `CipherSuitesPolicy, CipherAlgorithmType, HashAlgorithmType`
 
-Provide a detailed findings report with file paths, line numbers, code snippets, and severity ratings (Critical/High/Medium/Low/Info). For TLS inspection tools, distinguish between intentional security bypasses (documented, scoped) and accidental misconfigurations.
+Provide a detailed findings report with file paths, line numbers, code snippets, and severity ratings (Critical/High/Medium/Low/Info). For TLS inspection tools, distinguish between intentional security bypasses (documented, scoped) and accidental misconfigurations. **Do NOT include actual credential values, API keys, or tokens in your output** — use `[REDACTED]` placeholders.
 ~~~
 
 ## Customization Guide
+
+> **⚠️ Placeholder Safety:** Placeholder values are substituted directly into the prompt text. A crafted value could act as a prompt injection. Only use placeholder values you trust — do not accept them from untrusted sources.
 
 | Placeholder | Example Values |
 |-------------|---------------|
