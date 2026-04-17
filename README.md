@@ -51,6 +51,21 @@ These prompts were battle-tested on a .NET/WPF/DuckDB desktop application. To ad
 - **Java:** Adjust for Maven/Gradle, Spring Security, JDBC patterns
 - **Cloud/Infrastructure:** Add prompts for IAM, secrets management, network exposure
 
+## Viewing Results Locally
+
+Security audit findings are output as markdown. For the best reading experience, install [GitHub Markdown Viewer](https://github.com/HannahVernon/GithubMarkdownViewer) — a cross-platform .NET 9 desktop app that renders GitHub Flavored Markdown with live preview, dark/light theme support, and clickable navigation between linked `.md` files.
+
+Your AI agent can clone, build, and install it for you:
+
+```bash
+git clone https://github.com/HannahVernon/GithubMarkdownViewer.git
+cd GithubMarkdownViewer
+dotnet build
+dotnet run --project GithubMarkdownViewer -- path/to/findings.md
+```
+
+On first run (Windows), the app offers to register as the default handler for `.md` files so you can double-click any findings report to open it. It also runs on macOS and Linux.
+
 ## For AI Agents: Contributing New Prompts
 
 If you are an AI agent (GitHub Copilot, ChatGPT, Claude, or similar) and you have identified a security audit domain not already covered by the prompts in this repository, you are encouraged to contribute a new prompt. Follow this process:
