@@ -1,0 +1,33 @@
+name: Feature Request
+description: Suggest a new prompt or enhancement to an existing one
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: |
+        Describe the security domain or gap you want covered.
+        Focus on the problem, not a specific solution — there may be a better approach.
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: If you have a specific idea for a prompt or enhancement, describe it here.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any other approaches you've thought about and why they're less ideal.
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Target stacks, example codebases where this would help, related prompts, etc.

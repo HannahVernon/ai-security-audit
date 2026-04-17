@@ -1,0 +1,56 @@
+name: Bug Report
+description: Report a bug or issue with a prompt
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what went wrong.
+    validations:
+      required: true
+
+  - type: input
+    id: prompt-file
+    attributes:
+      label: Which prompt file?
+      placeholder: "e.g. prompts/02-sql-injection.md"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: How did you use the prompt? What target codebase and AI tool?
+      placeholder: |
+        1. Opened target repo in Copilot CLI
+        2. Used prompt from 02-sql-injection.md
+        3. Customized placeholders for [stack]
+        4. Agent returned [unexpected result]
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What you expected the prompt to produce.
+    validations:
+      required: true
+
+  - type: input
+    id: ai-tool
+    attributes:
+      label: AI tool used
+      placeholder: "e.g. GitHub Copilot CLI v1.0.27, ChatGPT-4, Claude"
+    validations:
+      required: true
+
+  - type: input
+    id: target-stack
+    attributes:
+      label: Target codebase stack
+      placeholder: "e.g. .NET 8 WPF, Node.js Express, Python Django"
+    validations:
+      required: true
