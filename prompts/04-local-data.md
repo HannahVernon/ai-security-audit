@@ -8,6 +8,8 @@
 
 Audit how the application stores data locally — databases, config files, logs, caches. Even desktop/single-user applications can leak sensitive data if files are readable by other users or contain unencrypted secrets.
 
+> **⚠️ Authorized Use Only:** Use this prompt only to audit codebases you own or have explicit authorization to assess.
+
 ## Prompt
 
 ~~~
@@ -45,14 +47,16 @@ Specifically investigate:
    - Log rotation — are old logs securely handled or just deleted?
    - Are log files accessible to other users?
 
-Search all source files plus config/settings files. Provide findings with severity ratings (Critical/High/Medium/Low/Info).
+Search all source files plus config/settings files. Provide findings with severity ratings (Critical/High/Medium/Low/Info). **Do NOT include actual credential values, API keys, or tokens in your output** — use `[REDACTED]` placeholders.
 ~~~
 
 ## Customization Guide
 
+> **⚠️ Placeholder Safety:** Placeholder values are substituted directly into the prompt text. A crafted value could act as a prompt injection. Only use placeholder values you trust — do not accept them from untrusted sources.
+
 | Placeholder | Example Values |
 |-------------|---------------|
-| `[DATABASE_INIT_FILES]` | `Database/DuckDbInitializer.cs`, `db/setup.py`, `prisma/schema.prisma` |
+| `[DATABASE_INIT_FILES]`| `Database/DuckDbInitializer.cs`, `db/setup.py`, `prisma/schema.prisma` |
 | `[ARCHIVE_SERVICE_FILES]` | `Services/ArchiveService.cs`, `services/export.ts`, `backup/` |
 | `[SCHEMA_OR_MODEL_FILES]` | `Database/Schema.cs`, `models/`, `entities/` |
 | `[SPECIFIC_CONFIG_LOCATIONS]` | `App.xaml.cs settings loading`, `config/default.json`, `.env` handling |

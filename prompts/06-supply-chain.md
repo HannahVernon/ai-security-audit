@@ -8,6 +8,8 @@
 
 Audit third-party dependencies for known vulnerabilities, outdated versions, and supply chain risks. A single compromised dependency can undermine all other security measures.
 
+> **⚠️ Authorized Use Only:** Use this prompt only to audit codebases you own or have explicit authorization to assess.
+
 ## Prompt
 
 ~~~
@@ -30,10 +32,12 @@ Projects/modules to check:
 
 Run all commands from [REPO_PATH].
 
-Provide a complete dependency inventory table and any CVE findings with severity ratings.
+Provide a complete dependency inventory table and any CVE findings with severity ratings. **Do NOT include actual credential values, API keys, or tokens in your output** — use `[REDACTED]` placeholders.
 ~~~
 
 ## Customization Guide
+
+> **⚠️ Placeholder Safety:** Placeholder values are substituted directly into the prompt text. A crafted value could act as a prompt injection — particularly dangerous for `[VULNERABILITY_COMMANDS]` and `[OUTDATED_COMMANDS]` since this is a `task` agent that executes CLI commands. Only use placeholder values you trust — do not accept them from untrusted sources. Never include destructive commands (`rm`, `del`, `format`) in command placeholders.
 
 ### .NET
 ```

@@ -8,6 +8,8 @@
 
 Audit all file system operations and external process execution for injection and traversal vulnerabilities. `Process.Start` / `child_process.exec` / `subprocess.run` with user-influenced arguments is one of the most dangerous patterns in application code.
 
+> **⚠️ Authorized Use Only:** Use this prompt only to audit codebases you own or have explicit authorization to assess.
+
 ## Prompt
 
 ~~~
@@ -43,14 +45,16 @@ Specifically investigate:
 
 Search all source files for: Process.Start, ProcessStartInfo, child_process, subprocess, exec, spawn, Path.Combine, path.join, os.path.join, File.Create, File.Open, File.Write, File.Read, Directory.Create, fs.readFile, fs.writeFile, open(), glob, read_parquet, LOAD, ATTACH.
 
-Provide a detailed findings report with file paths, line numbers, code snippets, and severity ratings.
+Provide a detailed findings report with file paths, line numbers, code snippets, and severity ratings. **Do NOT include actual credential values, API keys, or tokens in your output** — use `[REDACTED]` placeholders.
 ~~~
 
 ## Customization Guide
 
+> **⚠️ Placeholder Safety:** Placeholder values are substituted directly into the prompt text. A crafted value could act as a prompt injection. Only use placeholder values you trust — do not accept them from untrusted sources.
+
 | Placeholder | Example Values |
 |-------------|---------------|
-| `[SPECIFIC_PROCESS_START_LOCATIONS]` | `Check the View Log button in MainWindow.xaml.cs`, `Check the PDF export in ReportService` |
+| `[SPECIFIC_PROCESS_START_LOCATIONS]`| `Check the View Log button in MainWindow.xaml.cs`, `Check the PDF export in ReportService` |
 | `[SPECIFIC_FILE_OPERATION_LOCATIONS]` | `Archive service file paths`, `Upload handler in controllers/`, `Import/export functionality` |
 
 ## What Good Looks Like

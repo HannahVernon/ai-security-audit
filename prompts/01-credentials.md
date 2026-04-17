@@ -8,6 +8,8 @@
 
 Audit how the application stores, transmits, and protects credentials. This is typically the highest-value target for attackers — a single leaked credential can compromise an entire environment.
 
+> **⚠️ Authorized Use Only:** Use this prompt only to audit codebases you own or have explicit authorization to assess.
+
 ## Prompt
 
 ~~~
@@ -45,10 +47,12 @@ Search patterns:
 - Files: `**/*.[EXTENSIONS]`
 - Keywords: password, Password, credential, Credential, connectionstring, secret, apikey, api_key, token, Bearer, Authorization, Encrypt, TrustServerCertificate, SecureString, ProtectedData, DPAPI, keychain
 
-Provide a detailed findings report with file paths, line numbers, and severity ratings (Critical/High/Medium/Low/Info).
+Provide a detailed findings report with file paths, line numbers, and severity ratings (Critical/High/Medium/Low/Info). **Do NOT include actual credential values, API keys, tokens, or passwords in your output.** Report them as `[REDACTED]` — for example: "Line 42: Hardcoded password found in appsettings.json (value redacted)."
 ~~~
 
 ## Customization Guide
+
+> **⚠️ Placeholder Safety:** Placeholder values are substituted directly into the prompt text. A crafted value could act as a prompt injection. Only use placeholder values you trust — do not accept them from untrusted sources.
 
 | Placeholder | Example Values |
 |-------------|---------------|

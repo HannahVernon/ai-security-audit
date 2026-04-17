@@ -8,6 +8,8 @@
 
 Audit installation, deployment, and build scripts for privilege escalation, unsigned code execution, and injection vulnerabilities. Installers often run with elevated privileges, making any vulnerability in the install path a potential system compromise.
 
+> **⚠️ Authorized Use Only:** Use this prompt only to audit codebases you own or have explicit authorization to assess.
+
 ## Prompt
 
 ~~~
@@ -49,14 +51,16 @@ Specifically investigate:
    - Are there hardcoded paths or credentials?
    - Could environment variables be poisoned?
 
-Search all relevant files. Provide detailed findings with severity ratings.
+Search all relevant files. Provide detailed findings with severity ratings. **Do NOT include actual credential values, API keys, or tokens in your output** — use `[REDACTED]` placeholders.
 ~~~
 
 ## Customization Guide
 
+> **⚠️ Placeholder Safety:** Placeholder values are substituted directly into the prompt text. A crafted value could act as a prompt injection. Only use placeholder values you trust — do not accept them from untrusted sources.
+
 | Placeholder | Example Values |
 |-------------|---------------|
-| `[DEPENDENCY_INSTALLER_FILES]` | `Installer.Core/DependencyInstaller.cs`, `scripts/setup.sh`, `Dockerfile` |
+| `[DEPENDENCY_INSTALLER_FILES]`| `Installer.Core/DependencyInstaller.cs`, `scripts/setup.sh`, `Dockerfile` |
 | `[SCRIPT_PROVIDER_FILES]` | `Installer.Core/ScriptProvider.cs`, `db/migrate.ts`, `alembic/env.py` |
 | `[INSTALL_SCRIPT_DIRECTORIES]` | `install/*.sql`, `db/init/`, `migrations/` |
 | `[UPGRADE_SCRIPT_DIRECTORIES]` | `upgrades/`, `db/migrations/`, `flyway/sql/` |
