@@ -51,7 +51,7 @@ Specifically investigate:
 Search patterns:
 - Keywords: AddCors, UseCors, AllowAnyOrigin, WithOrigins, UseExceptionHandler, ProblemDetails, DeveloperExceptionPage, UseHsts, X-Frame-Options, X-Content-Type-Options, Content-Security-Policy, ServerHeader, app.UseStatusCodePages
 
-Provide a detailed findings report with file paths, line numbers, and severity ratings (Critical/High/Medium/Low/Info).
+Provide a detailed findings report with file paths, line numbers, and severity ratings (Critical/High/Medium/Low/Info). **Do NOT include actual credential values, API keys, tokens, or passwords in your output** — use `[REDACTED]` placeholders.
 ~~~
 
 ## Customization Guide

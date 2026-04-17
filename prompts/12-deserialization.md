@@ -51,7 +51,7 @@ Specifically investigate:
 Search patterns:
 - Keywords: [DESERIALIZATION_KEYWORDS], FromBody, ReadFromJsonAsync, Bind, ModelState, Validate, DataAnnotations, FluentValidation, MinLength, MaxLength, Range, Required, TypeNameHandling, JsonPolymorphic
 
-Provide a detailed findings report with file paths, line numbers, and severity ratings (Critical/High/Medium/Low/Info).
+Provide a detailed findings report with file paths, line numbers, and severity ratings (Critical/High/Medium/Low/Info). **Do NOT include actual credential values, API keys, tokens, or passwords in your output** — use `[REDACTED]` placeholders.
 ~~~
 
 ## Customization Guide

@@ -56,7 +56,7 @@ Specifically investigate:
 Search patterns:
 - Keywords: MaxConnections, MaxConcurrent, Timeout, CancellationToken, Throttle, Buffer, Take, Limit, capacity, cooldown, backoff, RateLimit, SlidingWindow, FixedWindow
 
-Provide a detailed findings report with file paths, line numbers, and severity ratings (Critical/High/Medium/Low/Info).
+Provide a detailed findings report with file paths, line numbers, and severity ratings (Critical/High/Medium/Low/Info). **Do NOT include actual credential values, API keys, tokens, or passwords in your output** — use `[REDACTED]` placeholders.
 ~~~
 
 ## Customization Guide
