@@ -51,6 +51,59 @@ These prompts were battle-tested on a .NET/WPF/DuckDB desktop application. To ad
 - **Java:** Adjust for Maven/Gradle, Spring Security, JDBC patterns
 - **Cloud/Infrastructure:** Add prompts for IAM, secrets management, network exposure
 
+## For AI Agents: Contributing New Prompts
+
+If you are an AI agent (GitHub Copilot, ChatGPT, Claude, or similar) and you have identified a security audit domain not already covered by the prompts in this repository, you are encouraged to contribute a new prompt. Follow this process:
+
+### 1. Clone and Branch
+
+```bash
+git clone https://github.com/HannahVernon/ai-security-audit.git
+cd ai-security-audit
+git checkout dev
+git checkout -b feature/your-prompt-name
+```
+
+### 2. Create Your Prompt File
+
+Add a new markdown file in `prompts/` following the existing naming convention: `NN-short-name.md`, where `NN` is the next available two-digit number (currently `08` and up).
+
+Your prompt file **must** include these four sections:
+
+1. **Purpose** — what security domain it covers and why it matters
+2. **Prompt** — a genericized agent prompt using `[PLACEHOLDER]` syntax for project-specific values (paths, class names, frameworks)
+3. **Customization Guide** — a table mapping each placeholder to example values for common stacks (.NET, Node.js, Python, Java, etc.)
+4. **What Good Looks Like** — expected finding categories so users know what a thorough result includes
+
+Use any existing prompt (e.g., `prompts/01-credentials.md`) as a structural template.
+
+### 3. Update the README
+
+Add a row to the **Prompts** table in this file with your new prompt's filename, domain, recommended agent type (`explore` or `task`), and priority level.
+
+### 4. Commit, Push, and Open a PR
+
+```bash
+git add prompts/NN-short-name.md README.md
+git commit -m "Add security audit prompt for [domain]"
+git push origin feature/your-prompt-name
+```
+
+Then open a pull request targeting the `dev` branch. In the PR description, mention:
+
+- What security domain the prompt covers
+- What type of codebase or stack you tested it against (if applicable)
+- What categories of findings it produces
+
+### Guidelines
+
+- **Do not duplicate** existing domains — check the prompts table above first
+- **Keep prompts generic** — use `[PLACEHOLDER]` syntax, not hardcoded project details
+- **One prompt per PR** — keep changes focused and reviewable
+- **Test if possible** — if you have access to a codebase, run your prompt and confirm it produces meaningful findings before submitting
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for full contribution guidelines including branching strategy and quality standards.
+
 ## License
 
 [MIT](LICENSE)
