@@ -39,6 +39,7 @@ Each prompt file contains:
 | [12-deserialization.md](prompts/12-deserialization.md) | JSON deserialization, input validation, injection | explore | High |
 | [13-cors-error-disclosure.md](prompts/13-cors-error-disclosure.md) | CORS policy, HTTP security headers, error leaks | explore | Medium |
 | [14-realtime-channels.md](prompts/14-realtime-channels.md) | SignalR/WebSocket hub security, broadcast filtering | explore | High |
+| [15-powershell-robustness.md](prompts/15-powershell-robustness.md) | PowerShell strict mode, type safety, defensive scripting | explore | Medium |
 
 ## Usage Tips
 
@@ -97,7 +98,7 @@ Specifically investigate:
 ...
 ```
 
-All 14 agents run simultaneously and complete in 1–3 minutes. Results include file paths, line numbers, code snippets, and severity ratings. You'll typically see a summary table like:
+All 15 agents run simultaneously and complete in 1–3 minutes. Results include file paths, line numbers, code snippets, and severity ratings. You'll typically see a summary table like:
 
 | # | Domain | Result | Key Findings |
 |---|--------|--------|--------------|
@@ -179,7 +180,7 @@ git checkout -b feature/your-prompt-name
 
 ### 2. Create Your Prompt File
 
-Add a new markdown file in `prompts/` following the existing naming convention: `NN-short-name.md`, where `NN` is the next available two-digit number (currently `15` and up).
+Add a new markdown file in `prompts/` following the existing naming convention: `NN-short-name.md`, where `NN` is the next available two-digit number (currently `16` and up).
 
 Your prompt file **must** include these four sections:
 
