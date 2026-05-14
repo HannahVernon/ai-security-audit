@@ -40,6 +40,7 @@ Each prompt file contains:
 | [13-cors-error-disclosure.md](prompts/13-cors-error-disclosure.md) | CORS policy, HTTP security headers, error leaks | explore | Medium |
 | [14-realtime-channels.md](prompts/14-realtime-channels.md) | SignalR/WebSocket hub security, broadcast filtering | explore | High |
 | [15-powershell-robustness.md](prompts/15-powershell-robustness.md) | PowerShell strict mode, type safety, defensive scripting | explore | Medium |
+| [16-local-ipc-privilege.md](prompts/16-local-ipc-privilege.md) | Local IPC auth, privilege escalation, MCP/LSP/DAP servers | explore | High |
 
 ## Usage Tips
 
@@ -180,7 +181,7 @@ git checkout -b feature/your-prompt-name
 
 ### 2. Create Your Prompt File
 
-Add a new markdown file in `prompts/` following the existing naming convention: `NN-short-name.md`, where `NN` is the next available two-digit number (currently `16` and up).
+Add a new markdown file in `prompts/` following the existing naming convention: `NN-short-name.md`, where `NN` is the next available two-digit number (currently `17` and up).
 
 Your prompt file **must** include these four sections:
 
