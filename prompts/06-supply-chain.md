@@ -26,18 +26,33 @@ Your task: **Audit the dependency supply chain** for known vulnerabilities.
 5. Check if packages are pinned to exact versions or using floating/range versions.
 6. Note any packages that seem unusual, unmaintained, or from non-standard registries.
 7. Check for pre-release or unstable version numbers in production dependencies.
+8. **Install script inspection**: Check for packages with lifecycle scripts that execute code during install:
+   - In Node.js: check for `preinstall`, `install`, `postinstall`, `prepare` scripts in dependency `package.json` files that download or execute external code
+   - In Python: check `setup.py` for code execution during `pip install`
+   - Could a compromised dependency's install script exfiltrate environment variables, credentials, cloud tokens, or SSH keys from the build or developer machine?
+   - Are install scripts disabled or audited (`npm install --ignore-scripts`, `--no-build` flags)?
+9. **Account compromise and package hijacking**: Check whether dependencies have been subject to maintainer account compromise:
+   - Have any direct dependencies had recent ownership changes or unusual burst-publishing activity (many versions published within minutes)?
+   - Are there recent security advisories for any dependencies related to account takeover or malicious version injection?
+   - For npm packages: is the maintainer's account protected by 2FA?  (Visible via `npm access` on scoped packages)
+   - Are there any dependencies from single-maintainer accounts with no organizational backing?
+   - See: "Shai-Hulud" npm supply chain attacks (https://www.theregister.com/cyber-crime/2026/05/19/shai-hulud-keeps-burrowing-314-npm-packages-infected-after-another-account-compromise/5242601) where 314 packages including size-sensor (4.2M downloads/month) were infected via a stolen token in a 22-minute burst
+10. **AI coding agent poisoning**: Check whether any dependency's install or post-install scripts write configuration files or settings that could be picked up by AI coding agents (Claude Code, Codex, Copilot, Cursor):
+    - Look for files written to `.claude/`, `.codex/`, `.cursor/`, `.github/copilot-instructions.md`, or similar AI agent configuration paths
+    - Could a compromised dependency inject prompt instructions that cause an AI agent to exfiltrate code, credentials, or repository contents?
+    - This attack vector was observed in the Shai-Hulud campaign (May 2026) where malware injected settings files targeting Claude Code and Codex as C2 execution vectors
 
 Projects/modules to check:
 [PROJECT_LIST]
 
 Run all commands from [REPO_PATH].
 
-Provide a complete dependency inventory table and any CVE findings with severity ratings. **Do NOT include actual credential values, API keys, or tokens in your output** — use `[REDACTED]` placeholders.
+Provide a complete dependency inventory table and any CVE findings with severity ratings.  **Do NOT include actual credential values, API keys, or tokens in your output** - use `[REDACTED]` placeholders.
 ~~~
 
 ## Customization Guide
 
-> **⚠️ Placeholder Safety:** Placeholder values are substituted directly into the prompt text. A crafted value could act as a prompt injection — particularly dangerous for `[VULNERABILITY_COMMANDS]` and `[OUTDATED_COMMANDS]` since this is a `task` agent that executes CLI commands. Only use placeholder values you trust — do not accept them from untrusted sources. Never include destructive commands (`rm`, `del`, `format`) in command placeholders.
+> **⚠️ Placeholder Safety:** Placeholder values are substituted directly into the prompt text.  A crafted value could act as a prompt injection - particularly dangerous for `[VULNERABILITY_COMMANDS]` and `[OUTDATED_COMMANDS]` since this is a `task` agent that executes CLI commands.  Only use placeholder values you trust - do not accept them from untrusted sources.  Never include destructive commands (`rm`, `del`, `format`) in command placeholders.
 
 ### .NET
 ```
@@ -104,3 +119,7 @@ Provide a complete dependency inventory table and any CVE findings with severity
 - All dependencies actively maintained (recent commits, releases)
 - Lock files committed (package-lock.json, yarn.lock, Pipfile.lock)
 - SBOM (Software Bill of Materials) generated for supply chain tracking
+- Install scripts audited or disabled during CI builds (`--ignore-scripts`)
+- No dependencies from recently-transferred or single-maintainer accounts without organizational backing
+- No dependency install scripts that write AI agent configuration files
+- Build environment credentials isolated from dependency installation steps
