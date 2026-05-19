@@ -35,12 +35,14 @@ New security domains are welcome. Before writing a prompt, check that it doesn't
 
 ### Prompt Quality Standards
 
-Every prompt file should include:
+Every prompt file should include these four core sections:
 
-1. **Purpose** — what security domain it covers and why it matters
-2. **Prompt** — the genericized agent prompt with `[PLACEHOLDER]` syntax
-3. **Customization Guide** — table mapping placeholders to example values per stack
-4. **What Good Looks Like** — expected findings categories so users know what a clean result means
+1. **Purpose** - what security domain it covers and why it matters
+2. **Prompt** - the genericized agent prompt with `[PLACEHOLDER]` syntax
+3. **Customization Guide** - table mapping placeholders to example values per stack
+4. **What Good Looks Like** - expected findings categories so users know what a clean result means
+
+Add **Relationship to Other Prompts** when overlap with another prompt needs to be clarified.
 
 ### Submitting Pull Requests
 

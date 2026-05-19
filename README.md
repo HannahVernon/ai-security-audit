@@ -23,15 +23,28 @@ File | Domain | Agent Type | Priority
 [15-powershell-robustness.md](prompts/15-powershell-robustness.md) | PowerShell strict mode, type safety, defensive scripting | explore | Medium
 [16-local-ipc-privilege.md](prompts/16-local-ipc-privilege.md) | Local IPC auth, privilege escalation, MCP/LSP/DAP servers | explore | High
 [17-network-attacker.md](prompts/17-network-attacker.md) | Token replay, session hijacking, protocol downgrade, trust anchoring | explore | High
+[18-cryptography.md](prompts/18-cryptography.md) | Weak algorithms, key management, PRNG misuse, nonce/IV reuse | explore | High
+[19-logging-monitoring.md](prompts/19-logging-monitoring.md) | Audit trail completeness, log injection, security event coverage | explore | Medium
+[20-ssrf.md](prompts/20-ssrf.md) | Server-side request forgery, URL validation, cloud metadata | explore | High
+[21-business-logic.md](prompts/21-business-logic.md) | Workflow bypass, state machine violations, privilege escalation through logic | explore | High
+[22-xss-output-encoding.md](prompts/22-xss-output-encoding.md) | XSS (reflected, stored, DOM), output encoding, CSP, template injection | explore | High
+[23-csrf.md](prompts/23-csrf.md) | Anti-forgery tokens, SameSite cookies, state-changing GET requests | explore | High
+[24-memory-sensitive-data.md](prompts/24-memory-sensitive-data.md) | Sensitive data in memory, secure disposal, crash dump exposure | explore | Medium
+[25-integer-overflow.md](prompts/25-integer-overflow.md) | Integer overflow, type truncation, floating-point precision, numeric safety | explore | Medium
+[26-regex-dos.md](prompts/26-regex-dos.md) | Catastrophic backtracking, regex denial of service, timeout protection | explore | Medium
+[27-privacy-pii.md](prompts/27-privacy-pii.md) | PII handling, data minimization, retention, right to deletion | explore | Medium
+[28-cicd-pipeline.md](prompts/28-cicd-pipeline.md) | Workflow injection, pipeline secrets, action supply chain, artifact integrity | explore | Medium
 
 ### Prompt structure
 
-Each prompt file contains four sections:
+Each prompt file contains four core sections:
 
 1. **Purpose** - what security domain it covers and why it matters
 2. **Prompt** - a genericized agent prompt with `[PLACEHOLDER]` tokens for project-specific values
 3. **Customization Guide** - a table mapping each placeholder to example values for common stacks
 4. **What Good Looks Like** - expected finding categories so reviewers know what a thorough result includes
+
+Some prompts also include **Relationship to Other Prompts** when the boundary with another domain needs to be clarified.
 
 ---
 
@@ -53,11 +66,11 @@ You can also clone this repo and reference the prompts locally, or copy individu
 
 These prompts were developed against .NET desktop and console applications.  The placeholder system makes them adaptable to other stacks:
 
-- **Web apps:** Add prompts for XSS, CSRF, session management (CORS and API auth are covered by prompts 10 and 13)
+- **Web apps:** XSS (prompt 22), CSRF (prompt 23), CORS (prompt 13), API auth (prompt 10), and SSRF (prompt 20) are all covered.  Add prompts for session management if your framework has custom session handling.
 - **Node.js:** Swap NuGet references for npm, adjust SQL patterns for your ORM
 - **Python:** Adjust for pip, Django/Flask patterns, pickle deserialization
 - **Java:** Adjust for Maven/Gradle, Spring Security, JDBC patterns
-- **Cloud/Infrastructure:** Add prompts for IAM, secrets management, network exposure
+- **Cloud/Infrastructure:** CI/CD pipeline security is covered (prompt 28).  Add prompts for IAM roles, cloud storage ACLs, and infrastructure-as-code if applicable.
 
 ### Security and trust
 
@@ -131,7 +144,7 @@ If you have identified a security audit domain not already covered by the prompt
    git switch -c feature/your-prompt-name
    ```
 
-2. Create a new file in `prompts/` named `NN-short-name.md`, where `NN` is the next available two-digit number (currently `18` and up).  Include all four required sections: Purpose, Prompt, Customization Guide, and What Good Looks Like.  Use any existing prompt as a structural template.
+2. Create a new file in `prompts/` named `NN-short-name.md`, where `NN` is the next available two-digit number (currently `29` and up).  Include the four required core sections: Purpose, Prompt, Customization Guide, and What Good Looks Like.  Add Relationship to Other Prompts when overlap with another domain needs clarification.  Use any existing prompt as a structural template.
 
 3. Add a row to the **Prompts** table in this README with the new file's name, domain, recommended agent type, and priority level.
 
